@@ -1,0 +1,548 @@
+/* ==========================================================================
+   EAGLES Basketball Academy — Global Stylesheet
+   Mengikuti desain Figma "EAGLES Academy" (navy / crimson / off-white)
+
+   1) Token   2) Base    3) Layout   4) Navbar   5) Tombol & Badge
+   6) Kartu   7) Hero    8) Tabel    9) Form    10) Modal
+   11) Galeri 12) Footer 13) AI Widget  14) Responsive
+   ========================================================================== */
+
+/* 1) TOKEN =============================================================== */
+:root{
+  /* Palet diambil langsung dari file desain */
+  --navy:#002068;
+  --navy-700:#012A80;
+  --blue:#003399;
+  --blue-700:#002B80;
+  --crimson:#B80049;
+  --pink:#E2165F;
+  --pink-600:#C11250;
+
+  --bg:#FBF9F8;          /* off-white hangat, background halaman */
+  --surface:#FFFFFF;
+  --grey:#F0EDED;        /* baris tabel selang-seling */
+  --chip:#E4E2E1;
+  --ink:#1B1C1C;
+  --muted:#5B5B5B;
+  --line:#DCD9D8;
+  --line-blue:#C4C5D5;
+
+  --font-display:'Anton','Archivo Black','Arial Narrow',system-ui,sans-serif;
+  --font-body:'Mulish','Nunito Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+
+  --radius:4px;
+  --radius-lg:10px;
+  --shadow-sm:0 1px 3px rgba(0,32,104,.08);
+  --shadow-md:0 12px 32px rgba(0,32,104,.14);
+  --shadow-lg:0 28px 70px rgba(0,32,104,.28);
+
+  --nav-h:72px;
+  --container:1152px;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+
+/* 2) BASE ================================================================ */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  padding-top:var(--nav-h);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.7;
+  color:var(--ink);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+h1,h2,h3,h4{
+  font-family:var(--font-display);
+  font-weight:400;              /* Anton hanya punya satu berat */
+  margin:0;
+  line-height:1.05;
+  letter-spacing:.01em;
+  text-transform:uppercase;
+}
+::selection{background:var(--pink);color:#fff}
+
+:focus-visible{outline:3px solid var(--pink);outline-offset:3px;border-radius:2px}
+
+.skip-link{
+  position:absolute;left:8px;top:-64px;z-index:1200;
+  background:var(--navy);color:#fff;padding:12px 18px;border-radius:var(--radius);
+  font-weight:800;transition:top .2s var(--ease);
+}
+.skip-link:focus{top:8px}
+
+.visually-hidden{
+  position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+
+/* 3) LAYOUT ============================================================== */
+.container{width:100%;max-width:var(--container);margin-inline:auto;padding-inline:24px}
+.section{padding:72px 0}
+.section--tight{padding:48px 0}
+.section--white{background:var(--surface)}
+
+.page-head{padding:56px 0 8px}
+.page-head h1{
+  font-size:clamp(34px,5.6vw,54px);color:var(--blue);margin-bottom:16px;
+}
+.page-head .lead{max-width:640px;color:var(--muted);font-size:17px}
+.page-head--rule h1::after{
+  content:"";display:block;width:96px;height:4px;background:var(--crimson);margin-top:14px;
+}
+
+/* Judul blok: garis crimson di kiri (pola berulang di desain) */
+.block-title{
+  display:flex;align-items:center;gap:14px;
+  font-size:clamp(20px,2.6vw,26px);color:var(--blue);margin-bottom:24px;
+}
+.block-title::before{
+  content:"";width:4px;align-self:stretch;min-height:26px;background:var(--crimson);
+}
+
+/* Judul dengan garis bawah tipis */
+.rule-title{font-size:clamp(20px,2.6vw,26px);color:var(--blue);margin-bottom:0}
+.rule{height:1px;background:var(--line-blue);border:0;margin:12px 0 32px}
+
+.grid{display:grid;gap:24px}
+.grid--2{grid-template-columns:repeat(2,1fr)}
+.grid--3{grid-template-columns:repeat(3,1fr)}
+.grid--contact{grid-template-columns:360px 1fr;gap:28px;align-items:start}
+.grid--players{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:20px}
+.lead{color:var(--muted)}
+.text-center{text-align:center}
+
+/* Kutipan kecil "DISIPLIN. FOKUS. JUARA." */
+.motto{
+  border-left:4px solid var(--crimson);padding-left:16px;
+  font-weight:900;font-size:13px;letter-spacing:.14em;line-height:1.5;
+  text-transform:uppercase;color:var(--crimson);
+}
+
+/* 4) NAVBAR ============================================================== */
+.nav{
+  position:fixed;inset:0 0 auto 0;z-index:900;height:var(--nav-h);
+  background:var(--surface);border-bottom:2px solid var(--navy);
+}
+.nav__inner{height:100%;display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.brand img{width:34px;height:34px;object-fit:contain}
+.brand__name{
+  font-family:var(--font-display);font-size:24px;line-height:1;color:var(--blue);
+  text-transform:uppercase;letter-spacing:.01em;
+}
+.brand__name span{color:var(--navy)}
+
+.menu{margin-inline:auto;display:flex;align-items:center;gap:30px}
+.menu a{
+  position:relative;font-size:15px;font-weight:800;color:var(--navy);padding:4px 0;
+  transition:color .18s var(--ease);
+}
+.menu a::after{
+  content:"";position:absolute;left:0;right:100%;bottom:-2px;height:2px;
+  background:var(--pink);transition:right .22s var(--ease);
+}
+.menu a:hover{color:var(--pink)}
+.menu a:hover::after{right:0}
+.menu a[aria-current="page"]{color:var(--pink)}
+.menu a[aria-current="page"]::after{right:0}
+.menu .btn{display:none;color:#fff}
+
+.nav__toggle{
+  display:none;width:44px;height:44px;border:2px solid var(--navy);border-radius:var(--radius);
+  background:var(--surface);align-items:center;justify-content:center;flex:0 0 auto;
+}
+.nav__toggle span{display:block;width:20px;height:2px;background:var(--navy);position:relative}
+.nav__toggle span::before,.nav__toggle span::after{
+  content:"";position:absolute;left:0;width:20px;height:2px;background:var(--navy);
+  transition:transform .2s var(--ease),top .2s var(--ease);
+}
+.nav__toggle span::before{top:-6px}
+.nav__toggle span::after{top:6px}
+.nav__toggle[aria-expanded="true"] span{background:transparent}
+.nav__toggle[aria-expanded="true"] span::before{top:0;transform:rotate(45deg)}
+.nav__toggle[aria-expanded="true"] span::after{top:0;transform:rotate(-45deg)}
+
+/* 5) TOMBOL & BADGE ====================================================== */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:13px 26px;border:2px solid transparent;border-radius:var(--radius);
+  font-family:var(--font-body);font-size:14px;font-weight:900;
+  letter-spacing:.06em;text-transform:uppercase;text-align:center;
+  transition:background-color .18s var(--ease),color .18s var(--ease),
+             border-color .18s var(--ease),transform .18s var(--ease);
+}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn--blue{background:var(--blue);color:#fff}
+.btn--blue:hover{background:var(--blue-700)}
+.btn--navy{background:var(--navy);color:#fff}
+.btn--navy:hover{background:#00184F}
+.btn--pink{background:var(--crimson);color:#fff}
+.btn--pink:hover{background:var(--pink-600)}
+.btn--ghost{background:transparent;border-color:var(--blue);color:var(--blue)}
+.btn--ghost:hover{background:var(--blue);color:#fff}
+.btn--block{width:100%}
+.btn--lg{padding:16px 32px;font-size:15px}
+.btn svg{flex:0 0 auto}
+
+.badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 14px;border-radius:999px;
+  font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;
+}
+.badge--pink{background:var(--pink);color:#fff}
+.badge--navy{background:var(--navy);color:#fff;border-radius:2px}
+.badge--grey{background:var(--chip);color:#3A3A3A;border-radius:2px}
+.badge--outline{background:var(--chip);color:#4A4A4A;border-radius:999px}
+
+/* 6) KARTU =============================================================== */
+.card{
+  background:var(--surface);border:1px solid var(--line-blue);border-radius:var(--radius);
+}
+
+/* Kartu program (Schedule) — garis tebal di atas */
+.program{padding:28px 26px 32px;border-top:4px solid var(--navy);display:flex;flex-direction:column;gap:14px}
+.program--elite{border-top-color:var(--crimson)}
+.program h3{display:flex;align-items:center;gap:10px;font-size:24px;color:var(--blue)}
+.program--elite h3{color:var(--crimson)}
+.program p{color:var(--muted);font-size:15px}
+.program .badge{margin-top:auto;align-self:flex-start}
+
+/* Kartu pelatih (Team) */
+.member{
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:28px 22px;gap:12px;
+}
+.member__photo{
+  width:190px;height:190px;border-radius:var(--radius-lg);overflow:hidden;
+  background:var(--grey);
+}
+.member__photo img{width:100%;height:100%;object-fit:cover}
+.member .badge{margin-top:-26px;position:relative;z-index:2}
+.member h3{font-size:26px;color:var(--blue);margin-top:4px}
+.member__bio{
+  color:var(--muted);font-size:14.5px;line-height:1.6;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+}
+.member .btn{margin-top:10px;width:100%}
+.member__detail{display:none}
+
+/* Kartu fitur (Home) */
+.feature{padding:26px 24px;display:flex;flex-direction:column;gap:12px;border-top:4px solid var(--blue)}
+.feature__ico{
+  width:44px;height:44px;border-radius:var(--radius);display:grid;place-items:center;
+  background:rgba(0,51,153,.08);color:var(--blue);
+}
+.feature h3{font-size:21px;color:var(--navy)}
+.feature p{color:var(--muted);font-size:15px}
+
+/* Kartu pemain (Gallery) */
+.player{
+  border-left:4px solid var(--blue);padding:20px 16px 22px;
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;
+}
+.player__photo{
+  width:104px;height:104px;border:2px solid var(--blue);border-radius:var(--radius-lg);
+  overflow:hidden;background:var(--grey);
+}
+.player__photo img{width:100%;height:100%;object-fit:cover}
+.player__name{font-family:var(--font-body);font-weight:900;color:var(--blue);font-size:15px}
+.player__meta{font-size:13.5px;color:var(--muted);line-height:1.5}
+.player__pos{
+  display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);
+  border-top:1px solid var(--line);padding-top:10px;margin-top:4px;width:100%;justify-content:center;
+}
+.player--new{border-left-color:var(--crimson)}
+
+.group-label{
+  display:flex;align-items:center;gap:14px;margin:36px 0 18px;
+  font-size:12px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:#9A9A9A;
+}
+.group-label::before{content:"";width:24px;height:1px;background:var(--line-blue)}
+.group-label::after{content:"";flex:1;height:1px;background:var(--line-blue)}
+
+/* 7) HERO ================================================================ */
+.hero{
+  position:relative;min-height:clamp(460px,72vh,660px);display:flex;align-items:center;
+  background:#DDE4EE url('../images/hero-court.jpg') center/cover no-repeat;
+  border-bottom:2px solid var(--navy);
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(251,249,248,.93) 0%,rgba(251,249,248,.78) 46%,rgba(251,249,248,.58) 100%);
+}
+.hero__inner{position:relative;padding:64px 24px}
+.hero h1{font-size:clamp(34px,5.4vw,56px);color:var(--blue);max-width:min(100%,780px);margin-bottom:18px}
+.hero p{max-width:44ch;color:#26303F;font-size:17px;margin-bottom:28px}
+.hero__cta{display:flex;flex-wrap:wrap;gap:14px}
+
+/* Banner foto (Schedule) */
+.banner{
+  position:relative;border-bottom:1px solid var(--line-blue);
+  background:#EDEDEB url('../images/schedule-banner.jpg') center/cover no-repeat;
+}
+.banner::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(251,249,248,.92) 0%,rgba(251,249,248,.72) 50%,rgba(251,249,248,.35) 100%);
+}
+.banner__inner{position:relative;padding:56px 24px}
+.banner h1{font-size:clamp(30px,4.8vw,46px);color:var(--blue);margin-bottom:14px}
+.banner p{max-width:46ch;color:#33383F}
+
+/* 8) TABEL JADWAL ======================================================== */
+.table-wrap{border:1px solid var(--navy);border-radius:var(--radius);overflow-x:auto}
+table.schedule{width:100%;border-collapse:collapse;min-width:640px;background:var(--surface)}
+table.schedule th{
+  background:var(--blue);color:#fff;text-align:left;padding:16px 20px;
+  font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;
+}
+table.schedule td{padding:16px 20px;border-top:1px solid var(--line);font-size:15px;color:#333}
+table.schedule tbody tr.is-elite{background:var(--grey)}
+table.schedule .day{font-weight:900;color:var(--ink)}
+table.schedule tr.is-elite .day{color:var(--pink)}
+table.schedule tr.is-elite .time{font-weight:900;color:var(--ink)}
+.cell-loc{display:flex;align-items:center;gap:8px;color:#444}
+
+/* 9) FORM ================================================================ */
+.form-card{
+  max-width:680px;margin-inline:auto;background:var(--surface);
+  border:2px solid var(--navy);border-radius:var(--radius);padding:clamp(24px,4vw,44px);
+}
+.form-card h1{font-size:clamp(26px,4vw,38px);color:var(--navy);text-align:center;margin-bottom:10px}
+.form-card > .lead{text-align:center;margin-bottom:28px;font-size:15px}
+
+.field{margin-bottom:18px}
+.field > label,.field__legend{
+  display:block;font-size:14px;font-weight:800;color:var(--ink);margin-bottom:7px;
+}
+fieldset.field{border:0;padding:0;margin-inline:0}
+.input,.select{
+  width:100%;padding:12px 14px;border:1px solid var(--line-blue);border-radius:var(--radius);
+  background:var(--surface);font:inherit;font-size:15px;color:var(--ink);
+  transition:border-color .18s var(--ease),box-shadow .18s var(--ease);
+}
+.input::placeholder{color:#A9A9A9}
+.input:focus,.select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,51,153,.14)}
+.input[aria-invalid="true"],.select[aria-invalid="true"]{border-color:var(--crimson);box-shadow:0 0 0 3px rgba(184,0,73,.12)}
+.select{
+  appearance:none;padding-right:40px;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23002068' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;
+}
+.field__row{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:14px}
+.error{display:block;min-height:18px;margin-top:5px;font-size:13px;font-weight:700;color:var(--crimson)}
+
+.upload{
+  border:2px dashed var(--line-blue);border-radius:var(--radius);background:var(--bg);
+  padding:26px 18px;text-align:center;color:var(--muted);cursor:pointer;
+  transition:border-color .18s var(--ease),background-color .18s var(--ease);
+}
+.upload:hover,.upload.is-drag{border-color:var(--blue);background:rgba(0,51,153,.05)}
+.upload svg{margin-inline:auto;color:var(--navy)}
+.upload strong{display:block;color:var(--ink);font-weight:700;margin-top:8px}
+.upload small{font-size:12.5px}
+.upload__preview{display:none;margin:10px auto 0;width:96px;height:96px;border-radius:var(--radius-lg);object-fit:cover;border:2px solid var(--blue)}
+.upload.has-file .upload__preview{display:block}
+
+.note{
+  display:flex;gap:12px;background:var(--chip);border-left:4px solid var(--navy);
+  padding:14px 16px;font-size:14px;color:#3A3A3A;margin:22px 0;
+}
+.note svg{flex:0 0 auto;color:var(--navy);margin-top:3px}
+
+.form-status{
+  display:none;margin-bottom:20px;padding:14px 16px;border-radius:var(--radius);
+  font-weight:700;font-size:14.5px;
+}
+.form-status.is-ok{display:block;background:rgba(0,51,153,.08);border-left:4px solid var(--blue);color:var(--navy)}
+.form-status.is-err{display:block;background:rgba(184,0,73,.08);border-left:4px solid var(--crimson);color:var(--crimson)}
+
+/* 10) MODAL ============================================================== */
+.modal{
+  position:fixed;inset:0;z-index:1000;display:none;
+  align-items:center;justify-content:center;padding:24px;
+  background:rgba(27,28,28,.55);
+}
+.modal.is-open{display:flex}
+.modal__box{
+  position:relative;width:min(900px,100%);max-height:88vh;overflow:auto;
+  background:var(--surface);border:2px solid var(--blue);border-radius:var(--radius);
+  display:grid;grid-template-columns:1fr 1fr;box-shadow:var(--shadow-lg);
+}
+.modal__media{background:var(--grey) center/cover no-repeat;min-height:340px}
+.modal__body{padding:34px 32px}
+.modal__body h2{font-size:clamp(26px,3.4vw,36px);color:var(--blue);margin-bottom:14px}
+.modal__tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.modal__body h3{
+  font-family:var(--font-body);font-weight:900;font-size:14px;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--ink);margin-bottom:10px;
+}
+.modal__list li{
+  position:relative;padding-left:16px;margin-bottom:8px;font-size:15px;color:#333;
+}
+.modal__list li::before{
+  content:"";position:absolute;left:0;top:11px;width:5px;height:5px;border-radius:50%;
+  background:var(--crimson);
+}
+.modal__actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.modal__actions .btn{flex:1 1 180px}
+.modal__close{
+  position:absolute;top:14px;right:14px;width:40px;height:40px;border:0;border-radius:var(--radius);
+  background:transparent;color:var(--crimson);display:grid;place-items:center;
+}
+.modal__close:hover{background:rgba(184,0,73,.1)}
+
+/* 11) GALERI ============================================================= */
+.tabs{
+  display:flex;flex-wrap:wrap;gap:34px;justify-content:center;
+  border-bottom:1px solid var(--line-blue);margin-bottom:8px;
+}
+.tab{
+  position:relative;background:none;border:0;padding:12px 2px 14px;
+  font-size:13px;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:#8C8C8C;
+  transition:color .18s var(--ease);
+}
+.tab:hover{color:var(--blue)}
+.tab[aria-selected="true"]{color:var(--navy)}
+.tab[aria-selected="true"]::after{
+  content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--blue);
+}
+.tabpanel[hidden]{display:none}
+
+.gallery-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:168px;gap:16px;
+}
+.gallery-grid figure{
+  position:relative;margin:0;overflow:hidden;border-radius:var(--radius);background:var(--grey);
+}
+.gallery-grid img{width:100%;height:100%;object-fit:cover;transition:transform .4s var(--ease)}
+.gallery-grid figure:hover img{transform:scale(1.05)}
+.gallery-grid figcaption{
+  position:absolute;inset:auto 0 0 0;padding:14px 14px 12px;
+  background:linear-gradient(180deg,rgba(0,32,104,0),rgba(0,32,104,.86));
+  color:#fff;font-size:13px;font-weight:700;
+}
+.gallery-grid .is-wide{grid-column:span 2;grid-row:span 2}
+.gallery-item[hidden]{display:none}
+
+/* 12) FOOTER ============================================================= */
+.footer{background:var(--navy);color:#fff;border-top:4px solid var(--crimson)}
+.footer__inner{
+  display:flex;flex-wrap:wrap;align-items:center;gap:24px;justify-content:space-between;
+  padding:38px 0;
+}
+.footer__brand{font-family:var(--font-display);font-size:30px;line-height:1;text-transform:uppercase}
+.footer__brand small{
+  display:block;font-family:var(--font-body);font-size:13px;font-weight:600;
+  letter-spacing:.02em;text-transform:none;color:#B9C6E4;margin-top:8px;
+}
+.footer__links{display:flex;flex-wrap:wrap;gap:26px}
+.footer__links a{font-size:14px;font-weight:800;color:#E6ECF8}
+.footer__links a:hover{color:var(--pink)}
+.footer__copy{font-size:13.5px;color:#AFBEDD}
+.footer__socials{display:flex;gap:10px}
+.footer__socials a{
+  width:36px;height:36px;border:1px solid rgba(255,255,255,.28);border-radius:var(--radius);
+  display:grid;place-items:center;color:#fff;
+}
+.footer__socials a:hover{background:var(--pink);border-color:var(--pink)}
+
+/* 13) AI WIDGET ========================================================== */
+.ai{position:fixed;right:20px;bottom:20px;z-index:950;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.ai__fab{
+  width:58px;height:58px;border:0;border-radius:14px;background:var(--crimson);color:#fff;
+  display:grid;place-items:center;box-shadow:var(--shadow-md);
+  transition:background-color .18s var(--ease),transform .18s var(--ease);
+}
+.ai__fab:hover{background:var(--pink-600);transform:translateY(-2px)}
+.ai__panel{
+  display:none;width:min(320px,calc(100vw - 40px));background:var(--surface);
+  border:1px solid var(--line-blue);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);
+  overflow:hidden;
+}
+.ai__panel.is-open{display:block}
+.ai__panel header{background:var(--navy);color:#fff;padding:14px 16px}
+.ai__panel header strong{display:block;font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+.ai__panel header span{font-size:12px;color:#B9C6E4}
+.ai__panel .ai__body{padding:16px;font-size:14px;color:var(--muted)}
+.ai__panel .btn{margin-top:14px}
+
+/* 14) RESPONSIVE ========================================================= */
+@media (max-width:1024px){
+  .gallery-grid{grid-template-columns:repeat(3,1fr)}
+  .menu{gap:22px}
+}
+
+@media (max-width:900px){
+  .grid--3{grid-template-columns:1fr 1fr}
+  .modal__box{grid-template-columns:1fr}
+  .modal__media{min-height:220px}
+}
+
+@media (max-width:760px){
+  :root{--nav-h:64px}
+  .nav__toggle{display:flex}
+  .nav__cta{display:none}
+  .menu{
+    position:fixed;left:0;right:0;top:var(--nav-h);
+    flex-direction:column;align-items:stretch;gap:0;margin:0;
+    background:var(--surface);border-bottom:2px solid var(--navy);
+    padding:8px 24px 22px;
+    transform:translateY(-12px);opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .2s var(--ease),transform .2s var(--ease),visibility .2s;
+    max-height:calc(100vh - var(--nav-h));overflow:auto;
+  }
+  .menu.is-open{transform:none;opacity:1;visibility:visible;pointer-events:auto}
+  .menu a{padding:14px 0;border-bottom:1px solid var(--line);font-size:16px}
+  .menu a::after{display:none}
+  .menu .btn{display:inline-flex;margin-top:16px}
+
+  .section{padding:52px 0}
+  .grid--2,.grid--3,.grid--contact{grid-template-columns:1fr}
+  .field__row{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:140px}
+  .gallery-grid .is-wide{grid-column:span 2;grid-row:span 1}
+  .tabs{gap:18px;justify-content:flex-start;overflow-x:auto}
+  .footer__inner{flex-direction:column;align-items:flex-start;text-align:left}
+  .hero__inner,.banner__inner{padding:48px 24px}
+  .hero__cta .btn{flex:1 1 100%}
+  .hero::before{
+    background:linear-gradient(180deg,rgba(251,249,248,.92) 0%,rgba(251,249,248,.78) 60%,rgba(251,249,248,.5) 100%);
+  }
+
+  /* Tabel jadwal jadi daftar kartu di layar kecil */
+  .table-wrap{border:0;overflow:visible}
+  table.schedule{min-width:0;border-collapse:separate;border-spacing:0 12px;background:transparent}
+  table.schedule thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  table.schedule tr{display:block;background:var(--surface);border:1px solid var(--navy);border-radius:var(--radius)}
+  table.schedule tbody tr.is-elite{background:var(--surface)}
+  table.schedule td{display:flex;justify-content:space-between;gap:16px;border-top:0;padding:11px 16px}
+  table.schedule td + td{border-top:1px solid var(--line)}
+  table.schedule td::before{
+    content:attr(data-label);font-size:11px;font-weight:900;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--muted);
+  }
+}
+
+@media (max-width:420px){
+  .gallery-grid{grid-template-columns:1fr;grid-auto-rows:180px}
+  .gallery-grid .is-wide{grid-column:span 1}
+}
+
+@media print{
+  .nav,.ai,.footer__socials,.btn{display:none!important}
+  body{padding-top:0;background:#fff}
+}
